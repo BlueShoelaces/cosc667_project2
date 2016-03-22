@@ -1,0 +1,14 @@
+10 3 2
+
+3 2 4
+
+long	high	tall		female
+medium	deep	verytall	male
+short	deep	tall		male
+long	high	short		female
+long	deep	tall		male
+medium	high	veryshort	female
+medium	deep	short		male
+short	deep	tall		male
+short	high	tall		female
+long	high	verytall	female

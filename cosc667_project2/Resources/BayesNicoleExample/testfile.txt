@@ -1,0 +1,7 @@
+5
+
+long	high	veryshort
+medium	high	short
+long	deep	verytall
+medium	high	verytall
+short	deep	tall
