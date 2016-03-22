@@ -12,10 +12,10 @@ public class NarrBayesTester {
 
 		final String root = "Resources/";
 		String path;
-		String trainingFile = "trainingfile.txt";
-		String testFile = "testfile.txt";
-		String classifiedFile = "classifiedfile.txt";
-		String validationFile = "validationfile.txt";
+		String trainingFile;
+		String testFile;
+		String classifiedFile;
+		final String validationFile;
 
 		do {
 			System.out.println("SELECT ONE:");
@@ -29,6 +29,10 @@ public class NarrBayesTester {
 			switch (menuChoice) {
 			case 1:
 				path = "BayesExample/Part1/";
+				trainingFile = "trainingfile.txt";
+				testFile = "testfile.txt";
+				classifiedFile = "classifiedfile.txt";
+
 				classifier = new NarrBayesClassifier();
 				classifier.loadTrainingData(root + path + trainingFile);
 				classifier.buildModel();
@@ -42,14 +46,13 @@ public class NarrBayesTester {
 				trainingFile = "train1.txt";
 				testFile = "test1.txt";
 				classifiedFile = "classified1.txt";
-				validationFile = "validation1.txt";
 
 				classifier = new NarrBayesClassifier();
 				classifier.loadTrainingData(root + path + trainingFile);
 				classifier.buildModel();
 				classifier.classifyData(root + path + testFile, root + path
 						+ classifiedFile);
-				classifier.validate(root + path + validationFile);
+				classifier.validate();
 				break;
 			case 4:
 				System.exit(0);

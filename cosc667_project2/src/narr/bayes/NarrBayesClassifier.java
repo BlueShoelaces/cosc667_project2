@@ -72,12 +72,12 @@ public class NarrBayesClassifier {
 
 			for (int j = 0; j < this.numberAttributes; j++) {
 				final String label = inFile.next();
-				attributeArray[j] = this.convert(label, j + 1);
+				attributeArray[j] = this.convertAttributeToValue(label, j + 1);
 			}
 
 			final String label = inFile.next();
-			final int className = this
-					.convert(label, this.numberAttributes + 1);
+			final int className = this.convertAttributeToValue(label,
+					this.numberAttributes + 1);
 
 			final NarrRecord record = new NarrRecord(attributeArray, className);
 
@@ -185,12 +185,12 @@ public class NarrBayesClassifier {
 
 			for (int j = 0; j < this.numberAttributes; j++) {
 				final String label = inFile.next();
-				attributeArray[j] = this.convert(label, j + 1);
+				attributeArray[j] = this.convertAttributeToValue(label, j + 1);
 			}
 
 			final int className = this.classify(attributeArray);
 
-			final String label = this.convert(className);
+			final String label = this.convertValueToClass(className);
 			outFile.println(label);
 		}
 
@@ -198,7 +198,9 @@ public class NarrBayesClassifier {
 		outFile.close();
 	}
 
-	public void validate(String validationFile) throws IOException {
+	public void validate() throws IOException {
+		int totalNumberOfErrors = 0;
+
 		// for each record
 		for (int i = 0; i < this.numberRecords; i++) {
 			final String tempTrainingFile = "tempTrain" + i + ".txt";
@@ -219,10 +221,12 @@ public class NarrBayesClassifier {
 					continue;
 				} else {
 					for (int k = 0; k < this.numberAttributes; k++) {
-						trainingOutFile.print(this.records.get(j).attributes[k]
-								+ " ");
+						trainingOutFile.print(this.convertValueToAttribute(k,
+								this.records.get(j).attributes[k]) + " ");
 					}
-					trainingOutFile.println(this.records.get(j).className);
+					trainingOutFile
+							.println(this.convertValueToClass(this.records
+							.get(j).className));
 				}
 			}
 
@@ -233,10 +237,11 @@ public class NarrBayesClassifier {
 
 			validationOutFile.println("1");
 			for (int j = 0; j < this.numberAttributes; j++) {
-				validationOutFile
-						.print(this.records.get(i).attributes[j] + " ");
+				validationOutFile.print(this.convertValueToAttribute(j,
+						this.records.get(i).attributes[j]) + " ");
 			}
-			validationOutFile.println(this.records.get(i).className);
+			validationOutFile.println(this.convertValueToClass(this.records
+					.get(i).className));
 
 			trainingOutFile.close();
 			validationOutFile.close();
@@ -246,16 +251,19 @@ public class NarrBayesClassifier {
 			validationClassifier.loadTrainingData(tempTrainingFile);
 			validationClassifier.buildModel();
 
-			this.validateOneRecord(tempValidationFile);
+			totalNumberOfErrors += this.validateOneRecord(tempValidationFile);
 
 			File file = new File(tempTrainingFile);
 			file.delete();
 			file = new File(tempValidationFile);
 			file.delete();
 		}
+		System.out.println("validation error = " + totalNumberOfErrors + "/"
+				+ this.numberRecords + " = " + (100.0) * totalNumberOfErrors
+				/ this.numberRecords + "%");
 	}
 
-	private void validateOneRecord(String validationFile)
+	private int validateOneRecord(String validationFile)
 			throws FileNotFoundException {
 		final Scanner inFile = new Scanner(new File(validationFile));
 
@@ -268,14 +276,13 @@ public class NarrBayesClassifier {
 
 			for (int j = 0; j < this.numberAttributes; j++) {
 				final String label = inFile.next();
-				System.out.println("column: " + (j + 1));
-				attributeArray[j] = this.convert(label, j + 1);
+				attributeArray[j] = this.convertAttributeToValue(label, j + 1);
 			}
 
 			final int predictedClass = this.classify(attributeArray);
 
 			final String label = inFile.next();
-			final int actualClass = this.convert(label,
+			final int actualClass = this.convertAttributeToValue(label,
 					this.numberAttributes + 1);
 
 			if (predictedClass != actualClass) {
@@ -283,13 +290,14 @@ public class NarrBayesClassifier {
 			}
 		}
 
-		final double errorRate = 100.0 * numberErrors / numberRecords;
-		System.out.println(errorRate + "% error");
+		System.out.println("number errors: " + numberErrors);
 
 		inFile.close();
+
+		return numberErrors;
 	}
 
-	private int convert(String label, int column) {
+	private int convertAttributeToValue(String label, int column) {
 		int loopControl;
 
 		if (column > this.numberAttributes) {
@@ -308,8 +316,12 @@ public class NarrBayesClassifier {
 		return ++this.labelConversionPointers[column - 1];
 	}
 
-	private String convert(int value) {
+	private String convertValueToClass(int value) {
 
 		return this.labelConversionArray[this.numberAttributes][value - 1];
+	}
+
+	private String convertValueToAttribute(int column, int value) {
+		return this.labelConversionArray[column][value - 1];
 	}
 }
