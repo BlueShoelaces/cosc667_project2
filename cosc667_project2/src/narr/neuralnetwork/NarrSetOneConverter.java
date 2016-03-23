@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class NarrConverter {
-	public static String convertSetOneTrainingData(String root, String path,
+public class NarrSetOneConverter {
+	public static String convertTrainingData(String root, String path,
 			String filename) throws IOException {
 
 		final String outputFile = root + path + "converted_" + filename;
@@ -50,7 +50,7 @@ public class NarrConverter {
 		return outputFile;
 	}
 
-	public static String convertSetOneTestData(String root, String path,
+	public static String convertTestData(String root, String path,
 			String filename) throws IOException {
 
 		final String outputFile = root + path + "converted_" + filename;
@@ -88,7 +88,7 @@ public class NarrConverter {
 		return outputFile;
 	}
 
-	public static String convertSetOneOutputData(String root, String path,
+	public static String convertOutputData(String root, String path,
 			String filename) throws IOException {
 
 		final String outputFile = root + path + "converted_" + filename;
@@ -113,7 +113,7 @@ public class NarrConverter {
 		return outputFile;
 	}
 
-	public static String convertSetOneValidationData(String root, String path,
+	public static String convertValidationData(String root, String path,
 			String filename) throws IOException {
 		final String outputFile = root + path + "converted_" + filename;
 
@@ -155,7 +155,7 @@ public class NarrConverter {
 		return outputFile;
 	}
 
-	public static String convertSetOneTrainingErrorData(String root,
+	public static String convertTrainingErrorData(String root,
 			String path, String filename) throws IOException {
 
 		final String outputFile = root + path + "converted_" + filename;

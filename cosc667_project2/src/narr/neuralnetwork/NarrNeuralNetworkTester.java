@@ -40,11 +40,9 @@ public class NarrNeuralNetworkTester {
 				neuralNetwork.loadTrainingData(root + path + trainingFile);
 				neuralNetwork.setParameters(4, 1000, 4539, 0.9);
 				neuralNetwork.train();
-				neuralNetwork.testData(root + path + inputFile, root + path
-						+ outputFile);
+				neuralNetwork.testData(root + path + inputFile, root + path + outputFile);
 
-				System.out.println("Output written to " + root + path
-						+ outputFile);
+				System.out.println("Output written to " + root + path + outputFile);
 				System.out.println();
 
 				break;
@@ -58,39 +56,83 @@ public class NarrNeuralNetworkTester {
 
 				neuralNetwork = new NarrNeuralNetworkClassifier();
 
-				final String convertedTrainingFile = NarrConverter
-						.convertSetOneTrainingData(root, path, trainingFile);
-				final String convertedTestFile = NarrConverter
-						.convertSetOneTestData(root, path, inputFile);
+				final String convertedTrainingFile = NarrSetOneConverter.convertTrainingData(root,
+						path, trainingFile);
+				final String convertedTestFile = NarrSetOneConverter.convertTestData(root, path,
+						inputFile);
 
 				neuralNetwork.loadTrainingData(convertedTrainingFile);
 				neuralNetwork.setParameters(4, 1000, 4539, 0.9);
 				neuralNetwork.train();
-				neuralNetwork.testData(convertedTestFile, root + path
-						+ outputFile);
+				neuralNetwork.testData(convertedTestFile, root + path + outputFile);
 
-				final String convertedOutputFile = NarrConverter
-						.convertSetOneOutputData(root, path, outputFile);
+				final String convertedOutputFile = NarrSetOneConverter.convertOutputData(root, path,
+						outputFile);
 
 				System.out.println("Output written to " + convertedOutputFile);
 				System.out.println();
 
-				final String convertedValidationFile = NarrConverter
-						.convertSetOneValidationData(root, path, validationFile);
+				final String convertedValidationFile = NarrSetOneConverter
+						.convertValidationData(root, path, validationFile);
 
 				neuralNetwork.validate(convertedValidationFile);
 
-				neuralNetwork.writeTrainingErrorComparisonFile(root + path
-						+ "trainingOutput.txt");
+				neuralNetwork.writeTrainingErrorComparisonFile(root + path + "trainingOutput.txt");
 
-				final String convertedTrainingErrorComparisonFile = NarrConverter
-						.convertSetOneTrainingErrorData(root, path,
-								"trainingOutput.txt");
+				final String convertedTrainingErrorComparisonFile = NarrSetOneConverter
+						.convertTrainingErrorData(root, path, "trainingOutput.txt");
 
-				neuralNetwork
-						.calculateTrainingError(convertedTrainingErrorComparisonFile);
+				neuralNetwork.calculateTrainingError(convertedTrainingErrorComparisonFile);
+
+				neuralNetwork.displayWeights();
+
+				neuralNetwork.displayThetas();
+
 				break;
 
+			case 3:
+				path = "Part3/";
+				trainingFile = "train2.txt";
+				inputFile = "test2.txt";
+				outputFile = "output.txt";
+				validationFile = "validate2.txt";
+
+				neuralNetwork = new NarrNeuralNetworkClassifier();
+
+				final String convertedSetTwoTrainingFile = NarrSetTwoConverter
+						.convertTrainingData(root, path, trainingFile);
+
+				final String convertedSetTwoTestFile = NarrSetTwoConverter.convertTestData(root,
+						path, inputFile);
+
+				neuralNetwork.loadTrainingData(convertedSetTwoTrainingFile);
+				neuralNetwork.setParameters(4, 1000, 9354, 0.9);
+				neuralNetwork.train();
+				neuralNetwork.testData(convertedSetTwoTestFile, root + path + outputFile);
+
+				final String convertedSetTwoOutputFile = NarrSetTwoConverter.convertOutputData(root,
+						path, outputFile);
+
+				System.out.println("Output written to " + convertedSetTwoOutputFile);
+				System.out.println();
+
+				final String convertedSetTwoValidationFile = NarrSetTwoConverter
+						.convertValidationData(root, path, validationFile);
+
+				neuralNetwork.validate(convertedSetTwoValidationFile);
+
+				neuralNetwork.writeTrainingErrorComparisonFile(root + path + "trainingOutput.txt");
+
+				final String convertedSetTwoTrainingErrorComparisonFile = NarrSetTwoConverter
+						.convertTrainingErrorData(root, path, "trainingOutput.txt");
+
+				neuralNetwork.calculateTrainingError(convertedSetTwoTrainingErrorComparisonFile);
+
+				neuralNetwork.displayWeights();
+
+				neuralNetwork.displayThetas();
+
+				break;
 			case 4:
 				System.exit(0);
 

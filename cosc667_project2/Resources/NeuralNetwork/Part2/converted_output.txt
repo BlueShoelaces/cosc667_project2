@@ -1,5 +1,0 @@
-average
-good
-bad
-good
-bad
