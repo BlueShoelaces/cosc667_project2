@@ -76,8 +76,7 @@ public class NarrBayesClassifier {
 			}
 
 			final String label = inFile.next();
-			final int className = this.convertAttributeToValue(label,
-					this.numberAttributes + 1);
+			final int className = this.convertAttributeToValue(label, this.numberAttributes + 1);
 
 			final NarrRecord record = new NarrRecord(attributeArray, className);
 
@@ -172,11 +171,9 @@ public class NarrBayesClassifier {
 		return product * this.classTable[className - 1];
 	}
 
-	public void classifyData(String testFile, String classifiedFile)
-			throws IOException {
+	public void classifyData(String testFile, String classifiedFile) throws IOException {
 		final Scanner inFile = new Scanner(new File(testFile));
-		final PrintWriter outFile = new PrintWriter(new FileWriter(
-				classifiedFile));
+		final PrintWriter outFile = new PrintWriter(new FileWriter(classifiedFile));
 
 		final int numberRecords = inFile.nextInt();
 
@@ -194,8 +191,33 @@ public class NarrBayesClassifier {
 			outFile.println(label);
 		}
 
+		System.out.println("Output written to " + classifiedFile);
+		System.out.println();
+
 		inFile.close();
 		outFile.close();
+	}
+
+	public void calculateTrainingError() {
+		int numberOfErrors = 0;
+
+		int actualClassification;
+		int expectedClassification;
+
+		for (int i = 0; i < this.numberRecords; i++) {
+			expectedClassification = this.records.get(i).className;
+			actualClassification = this.classify(this.records.get(i).attributes);
+
+			if (expectedClassification != actualClassification) {
+				numberOfErrors++;
+			}
+		}
+
+		final double trainingError = (double) numberOfErrors / this.numberRecords;
+
+		System.out.printf("Training error = %d/%d = %.2f%%\n", numberOfErrors, this.numberRecords,
+				trainingError * 100);
+		System.out.println();
 	}
 
 	public void validate() throws IOException {
@@ -206,11 +228,10 @@ public class NarrBayesClassifier {
 			final String tempTrainingFile = "tempTrain" + i + ".txt";
 
 			// write temp training file with all but this record
-			final PrintWriter trainingOutFile = new PrintWriter(new FileWriter(
-					tempTrainingFile));
+			final PrintWriter trainingOutFile = new PrintWriter(new FileWriter(tempTrainingFile));
 
-			trainingOutFile.println("" + (this.numberRecords - 1) + " "
-					+ this.numberAttributes + " " + this.numberClasses);
+			trainingOutFile.println("" + (this.numberRecords - 1) + " " + this.numberAttributes
+					+ " " + this.numberClasses);
 			for (int j = 0; j < this.numberAttributes; j++) {
 				trainingOutFile.print(this.attributeValues[j] + " ");
 			}
@@ -221,27 +242,27 @@ public class NarrBayesClassifier {
 					continue;
 				} else {
 					for (int k = 0; k < this.numberAttributes; k++) {
-						trainingOutFile.print(this.convertValueToAttribute(k,
-								this.records.get(j).attributes[k]) + " ");
+						trainingOutFile.print(
+								this.convertValueToAttribute(k, this.records.get(j).attributes[k])
+										+ " ");
 					}
 					trainingOutFile
-							.println(this.convertValueToClass(this.records
-							.get(j).className));
+							.println(this.convertValueToClass(this.records.get(j).className));
 				}
 			}
 
 			final String tempValidationFile = "tempValidation" + i + ".txt";
+
 			// write this record to validation file
 			final PrintWriter validationOutFile = new PrintWriter(
 					new FileWriter(tempValidationFile));
 
 			validationOutFile.println("1");
 			for (int j = 0; j < this.numberAttributes; j++) {
-				validationOutFile.print(this.convertValueToAttribute(j,
-						this.records.get(i).attributes[j]) + " ");
+				validationOutFile.print(
+						this.convertValueToAttribute(j, this.records.get(i).attributes[j]) + " ");
 			}
-			validationOutFile.println(this.convertValueToClass(this.records
-					.get(i).className));
+			validationOutFile.println(this.convertValueToClass(this.records.get(i).className));
 
 			trainingOutFile.close();
 			validationOutFile.close();
@@ -258,13 +279,12 @@ public class NarrBayesClassifier {
 			file = new File(tempValidationFile);
 			file.delete();
 		}
-		System.out.println("validation error = " + totalNumberOfErrors + "/"
-				+ this.numberRecords + " = " + (100.0) * totalNumberOfErrors
-				/ this.numberRecords + "%");
+
+		System.out.printf("Validation error = %d/%d = %.2f%%\n", totalNumberOfErrors,
+				this.numberRecords, (100.0) * totalNumberOfErrors / this.numberRecords);
 	}
 
-	private int validateOneRecord(String validationFile)
-			throws FileNotFoundException {
+	private int validateOneRecord(String validationFile) throws FileNotFoundException {
 		final Scanner inFile = new Scanner(new File(validationFile));
 
 		final int numberRecords = inFile.nextInt();
@@ -282,15 +302,12 @@ public class NarrBayesClassifier {
 			final int predictedClass = this.classify(attributeArray);
 
 			final String label = inFile.next();
-			final int actualClass = this.convertAttributeToValue(label,
-					this.numberAttributes + 1);
+			final int actualClass = this.convertAttributeToValue(label, this.numberAttributes + 1);
 
 			if (predictedClass != actualClass) {
 				numberErrors++;
 			}
 		}
-
-		System.out.println("number errors: " + numberErrors);
 
 		inFile.close();
 

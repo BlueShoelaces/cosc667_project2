@@ -1,5 +1,0 @@
-mediumrisk
-undetermined
-highrisk
-highrisk
-lowrisk

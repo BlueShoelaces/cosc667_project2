@@ -19,6 +19,11 @@ public class NarrNeuralNetworkTester {
 		String outputFile;
 		String validationFile;
 
+		int numberOfHiddenNodes;
+		int numberOfIterations;
+		int seed;
+		double learningRate;
+
 		do {
 			System.out.println("SELECT ONE:");
 			System.out.println(" 1 Neural Network Part One");
@@ -35,10 +40,16 @@ public class NarrNeuralNetworkTester {
 				inputFile = "test.txt";
 				outputFile = "output.txt";
 
+				numberOfHiddenNodes = 4;
+				numberOfIterations = 1000;
+				seed = 4539;
+				learningRate = 0.9;
+
 				neuralNetwork = new NarrNeuralNetworkClassifier();
 
 				neuralNetwork.loadTrainingData(root + path + trainingFile);
-				neuralNetwork.setParameters(4, 1000, 4539, 0.9);
+				neuralNetwork.setParameters(numberOfHiddenNodes, numberOfIterations, seed,
+						learningRate);
 				neuralNetwork.train();
 				neuralNetwork.testData(root + path + inputFile, root + path + outputFile);
 
@@ -54,6 +65,11 @@ public class NarrNeuralNetworkTester {
 				outputFile = "output.txt";
 				validationFile = "validate1.txt";
 
+				numberOfHiddenNodes = 4;
+				numberOfIterations = 1000;
+				seed = 4539;
+				learningRate = 0.9;
+
 				neuralNetwork = new NarrNeuralNetworkClassifier();
 
 				final String convertedTrainingFile = NarrSetOneConverter.convertTrainingData(root,
@@ -62,7 +78,8 @@ public class NarrNeuralNetworkTester {
 						inputFile);
 
 				neuralNetwork.loadTrainingData(convertedTrainingFile);
-				neuralNetwork.setParameters(4, 1000, 4539, 0.9);
+				neuralNetwork.setParameters(numberOfHiddenNodes, numberOfIterations, seed,
+						learningRate);
 				neuralNetwork.train();
 				neuralNetwork.testData(convertedTestFile, root + path + outputFile);
 
@@ -97,6 +114,11 @@ public class NarrNeuralNetworkTester {
 				outputFile = "output.txt";
 				validationFile = "validate2.txt";
 
+				numberOfHiddenNodes = 4;
+				numberOfIterations = 1000;
+				seed = 4539;
+				learningRate = 0.9;
+
 				neuralNetwork = new NarrNeuralNetworkClassifier();
 
 				final String convertedSetTwoTrainingFile = NarrSetTwoConverter
@@ -106,7 +128,8 @@ public class NarrNeuralNetworkTester {
 						path, inputFile);
 
 				neuralNetwork.loadTrainingData(convertedSetTwoTrainingFile);
-				neuralNetwork.setParameters(4, 1000, 9354, 0.9);
+				neuralNetwork.setParameters(numberOfHiddenNodes, numberOfIterations, seed,
+						learningRate);
 				neuralNetwork.train();
 				neuralNetwork.testData(convertedSetTwoTestFile, root + path + outputFile);
 
@@ -134,6 +157,7 @@ public class NarrNeuralNetworkTester {
 
 				break;
 			case 4:
+				keyboard.close();
 				System.exit(0);
 
 			default:

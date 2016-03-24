@@ -144,6 +144,12 @@ public class NarrNeuralNetworkClassifier {
 		}
 	}
 
+	public void trainUsingRegression() {
+		for (int i = 0; i < this.numberOfRecords; i++) {
+			this.forwardCalculation(this.records.get(i).input);
+		}
+	}
+
 	private void forwardCalculation(double[] trainingInput) {
 		for (int i = 0; i < this.numberOfInputs; i++) {
 			this.input[i] = trainingInput[i];
