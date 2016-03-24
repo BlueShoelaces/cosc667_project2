@@ -11,23 +11,19 @@ public class NarrRegressionTester {
 
 		final Scanner keyboard = new Scanner(System.in);
 
-		final NarrNeuralNetworkClassifier neuralNetwork;
-
 		final String root = "Resources/Regression/";
 		String path;
 		int iteration;
 
-		final String trainingFile;
-		final String inputFile;
-		final String outputFile;
-		final String validationFile;
+		String trainingFile;
+		String inputFile;
+		String outputFile;
+		String validationFile;
 
 		int numberOfHiddenNodes;
 		int numberOfIterations;
 		int seed;
 		double learningRate;
-
-		final NarrRegressionConverter converter;
 
 		do {
 			System.out.println("SELECT ONE:");
@@ -53,6 +49,38 @@ public class NarrRegressionTester {
 				break;
 
 			case 2:
+				path = "Part2/";
+				trainingFile = root + path + "sp_training.txt";
+				inputFile = root + path + "sp_test.txt";
+				validationFile = root + path + "sp_validation.txt";
+				outputFile = root + path + "sp_output.txt";
+
+				final String normalizedTrainingFile = root + path + "normalized_sp_training.txt";
+				final String normalizedValidationFile = root + path
+						+ "normalized_sp_validation.txt";
+				final String normalizedInputFile = root + path + "normalized_sp_test.txt";
+				final String normalizedOutputFile = root + path + "normalized_output.txt";
+
+				final NarrSPRegressionConverter converter = new NarrSPRegressionConverter();
+				converter.normalizeTrainingData(trainingFile, normalizedTrainingFile);
+				converter.normalizeValidationData(validationFile, normalizedValidationFile);
+				converter.normalizeTestData(inputFile, normalizedInputFile);
+
+				final NarrNeuralNetworkClassifier neuralNetwork = new NarrNeuralNetworkClassifier();
+
+				numberOfHiddenNodes = 4;
+				seed = 5678;
+
+				neuralNetwork.loadTrainingData(normalizedTrainingFile);
+				neuralNetwork.setParameters(numberOfHiddenNodes, 0, seed, 0);
+				neuralNetwork.trainUsingRegression();
+				neuralNetwork.validate(normalizedValidationFile);
+				neuralNetwork.testData(normalizedInputFile, normalizedOutputFile);
+
+				converter.denormalizeOutputData(normalizedOutputFile, outputFile);
+
+				System.out.println("Output written to " + outputFile);
+				System.out.println();
 
 				break;
 
