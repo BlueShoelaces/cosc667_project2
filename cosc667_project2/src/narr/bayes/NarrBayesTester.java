@@ -35,8 +35,8 @@ public class NarrBayesTester {
 
 				bayesClassifier = new NarrBayesClassifier();
 
-				buildModelAndClassifyRecords(bayesClassifier, root, path, trainingFile, testFile,
-						classifiedFile);
+				buildModelAndClassifyRecords(bayesClassifier, root, path,
+						trainingFile, testFile, classifiedFile);
 				break;
 			case 2:
 				path = "Part2/";
@@ -46,8 +46,8 @@ public class NarrBayesTester {
 
 				bayesClassifier = new NarrBayesClassifier();
 
-				buildModelAndClassifyRecords(bayesClassifier, root, path, trainingFile, testFile,
-						classifiedFile);
+				buildModelAndClassifyRecords(bayesClassifier, root, path,
+						trainingFile, testFile, classifiedFile);
 				calculateValidationAndTrainingError(bayesClassifier);
 				break;
 			case 3:
@@ -58,8 +58,8 @@ public class NarrBayesTester {
 
 				bayesClassifier = new NarrBayesClassifier();
 
-				buildModelAndClassifyRecords(bayesClassifier, root, path, trainingFile, testFile,
-						classifiedFile);
+				buildModelAndClassifyRecords(bayesClassifier, root, path,
+						trainingFile, testFile, classifiedFile);
 				calculateValidationAndTrainingError(bayesClassifier);
 				break;
 			case 4:
@@ -73,18 +73,20 @@ public class NarrBayesTester {
 
 	}
 
-	private static void calculateValidationAndTrainingError(NarrBayesClassifier bayesClassifier)
-			throws IOException {
+	private static void calculateValidationAndTrainingError(
+			NarrBayesClassifier bayesClassifier) throws IOException {
 		bayesClassifier.validate();
 		bayesClassifier.calculateTrainingError();
 	}
 
-	private static void buildModelAndClassifyRecords(NarrBayesClassifier bayesClassifier,
-			final String root, String path, String trainingFile, String testFile,
+	private static void buildModelAndClassifyRecords(
+			NarrBayesClassifier bayesClassifier, final String root,
+			String path, String trainingFile, String testFile,
 			String classifiedFile) throws IOException {
 		bayesClassifier.loadTrainingData(root + path + trainingFile);
 		bayesClassifier.buildModel();
-		bayesClassifier.classifyData(root + path + testFile, root + path + classifiedFile);
+		bayesClassifier.classifyData(root + path + testFile, root + path
+				+ classifiedFile);
 	}
 
 }

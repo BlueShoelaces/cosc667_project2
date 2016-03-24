@@ -93,8 +93,8 @@ public class NarrNeuralNetworkClassifier {
 		inFile.close();
 	}
 
-	public void setParameters(int numberOfHiddenNodes, int numberOfIterations, int seed,
-			double learningRate) {
+	public void setParameters(int numberOfHiddenNodes, int numberOfIterations,
+			int seed, double learningRate) {
 		this.numberOfHiddenNodes = numberOfHiddenNodes;
 		this.numberOfIterations = numberOfIterations;
 		this.seed = seed;
@@ -159,7 +159,8 @@ public class NarrNeuralNetworkClassifier {
 			double sum = 0;
 
 			for (int inputNode = 0; inputNode < this.numberOfInputs; inputNode++) {
-				sum += this.input[inputNode] * this.weightsInputHidden[inputNode][hiddenNode];
+				sum += this.input[inputNode]
+						* this.weightsInputHidden[inputNode][hiddenNode];
 			}
 
 			sum += this.thetasAtHiddenNodes[hiddenNode];
@@ -204,14 +205,15 @@ public class NarrNeuralNetworkClassifier {
 			for (int outputNode = 0; outputNode < this.numberOfOutputs; outputNode++) {
 				this.weightsHiddenOutput[hiddenNode][outputNode] += this.learningRate
 						* this.outputAtHiddenNodes[hiddenNode]
-						* this.errorsAtOutputNodes[outputNode];
+								* this.errorsAtOutputNodes[outputNode];
 			}
 		}
 
 		for (int inputNode = 0; inputNode < this.numberOfInputs; inputNode++) {
 			for (int hiddenNode = 0; hiddenNode < this.numberOfHiddenNodes; hiddenNode++) {
 				this.weightsInputHidden[inputNode][hiddenNode] += this.learningRate
-						* this.input[inputNode] * this.errorsAtHiddenNodes[hiddenNode];
+						* this.input[inputNode]
+								* this.errorsAtHiddenNodes[hiddenNode];
 			}
 		}
 
@@ -232,7 +234,8 @@ public class NarrNeuralNetworkClassifier {
 		return this.outputAtOutputNodes;
 	}
 
-	public void testData(String inputFile, String outputFile) throws IOException {
+	public void testData(String inputFile, String outputFile)
+			throws IOException {
 		final Scanner inFile = new Scanner(new File(inputFile));
 		final PrintWriter outFile = new PrintWriter(new FileWriter(outputFile));
 
@@ -282,8 +285,8 @@ public class NarrNeuralNetworkClassifier {
 
 		inFile.close();
 
-		System.out.printf("Validation error = %.2f/%d = %.2f%%%n", error, numberRecords,
-				(error / numberRecords * 100));
+		System.out.printf("Validation error = %.2f/%d = %.2f%%%n", error,
+				numberRecords, (error / numberRecords * 100));
 		System.out.println();
 	}
 
@@ -297,9 +300,11 @@ public class NarrNeuralNetworkClassifier {
 		return Math.sqrt(error / actualOutput.length);
 	}
 
-	public void writeTrainingErrorComparisonFile(String trainingErrorOutput) throws IOException {
+	public void writeTrainingErrorComparisonFile(String trainingErrorOutput)
+			throws IOException {
 
-		final PrintWriter outFile = new PrintWriter(new FileWriter(trainingErrorOutput));
+		final PrintWriter outFile = new PrintWriter(new FileWriter(
+				trainingErrorOutput));
 
 		outFile.println(this.numberOfRecords + " " + this.numberOfOutputs);
 		outFile.println();
@@ -321,10 +326,11 @@ public class NarrNeuralNetworkClassifier {
 
 	}
 
-	public double calculateTrainingError(String convertedTrainingErrorComparisonFile)
-			throws IOException {
+	public double calculateTrainingError(
+			String convertedTrainingErrorComparisonFile) throws IOException {
 
-		final Scanner inFile = new Scanner(new File(convertedTrainingErrorComparisonFile));
+		final Scanner inFile = new Scanner(new File(
+				convertedTrainingErrorComparisonFile));
 
 		boolean correctlyClassified;
 		int numberIncorrectlyClassifiedRecords = 0;
@@ -346,9 +352,11 @@ public class NarrNeuralNetworkClassifier {
 
 		inFile.close();
 
-		final double error = (double) numberIncorrectlyClassifiedRecords / this.numberOfRecords;
+		final double error = (double) numberIncorrectlyClassifiedRecords
+				/ this.numberOfRecords;
 
-		System.out.println("Training error = " + numberIncorrectlyClassifiedRecords + "/"
+		System.out.println("Training error = "
+				+ numberIncorrectlyClassifiedRecords + "/"
 				+ this.numberOfRecords + " = " + error * 100 + "%");
 		System.out.println();
 
@@ -370,7 +378,8 @@ public class NarrNeuralNetworkClassifier {
 		for (int inputNode = 0; inputNode < this.weightsInputHidden.length; inputNode++) {
 			System.out.printf("%3s", "I" + inputNode);
 			for (int hiddenNode = 0; hiddenNode < this.weightsInputHidden[inputNode].length; hiddenNode++) {
-				System.out.printf("%7.2f", this.weightsInputHidden[inputNode][hiddenNode]);
+				System.out.printf("%7.2f",
+						this.weightsInputHidden[inputNode][hiddenNode]);
 			}
 			System.out.println();
 		}
@@ -386,7 +395,8 @@ public class NarrNeuralNetworkClassifier {
 		for (int hiddenNode = 0; hiddenNode < this.weightsHiddenOutput.length; hiddenNode++) {
 			System.out.printf("%3s", "H" + hiddenNode);
 			for (int outputNode = 0; outputNode < this.weightsHiddenOutput[hiddenNode].length; outputNode++) {
-				System.out.printf("%7.2f", this.weightsHiddenOutput[hiddenNode][outputNode]);
+				System.out.printf("%7.2f",
+						this.weightsHiddenOutput[hiddenNode][outputNode]);
 			}
 			System.out.println();
 		}

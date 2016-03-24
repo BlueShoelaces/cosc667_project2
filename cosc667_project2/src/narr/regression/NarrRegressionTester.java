@@ -43,8 +43,8 @@ public class NarrRegressionTester {
 					seed = 4539;
 					learningRate = 0.9;
 
-					doAllTheThings(root, path, iteration, numberOfHiddenNodes, numberOfIterations,
-							seed, learningRate);
+					doAllTheThings(root, path, iteration, numberOfHiddenNodes,
+							numberOfIterations, seed, learningRate);
 				}
 				break;
 
@@ -55,15 +55,20 @@ public class NarrRegressionTester {
 				validationFile = root + path + "sp_validation.txt";
 				outputFile = root + path + "sp_output.txt";
 
-				final String normalizedTrainingFile = root + path + "normalized_sp_training.txt";
+				final String normalizedTrainingFile = root + path
+						+ "normalized_sp_training.txt";
 				final String normalizedValidationFile = root + path
 						+ "normalized_sp_validation.txt";
-				final String normalizedInputFile = root + path + "normalized_sp_test.txt";
-				final String normalizedOutputFile = root + path + "normalized_output.txt";
+				final String normalizedInputFile = root + path
+						+ "normalized_sp_test.txt";
+				final String normalizedOutputFile = root + path
+						+ "normalized_output.txt";
 
 				final NarrSPRegressionConverter converter = new NarrSPRegressionConverter();
-				converter.normalizeTrainingData(trainingFile, normalizedTrainingFile);
-				converter.normalizeValidationData(validationFile, normalizedValidationFile);
+				converter.normalizeTrainingData(trainingFile,
+						normalizedTrainingFile);
+				converter.normalizeValidationData(validationFile,
+						normalizedValidationFile);
 				converter.normalizeTestData(inputFile, normalizedInputFile);
 
 				final NarrNeuralNetworkClassifier neuralNetwork = new NarrNeuralNetworkClassifier();
@@ -75,9 +80,11 @@ public class NarrRegressionTester {
 				neuralNetwork.setParameters(numberOfHiddenNodes, 0, seed, 0);
 				neuralNetwork.trainUsingRegression();
 				neuralNetwork.validate(normalizedValidationFile);
-				neuralNetwork.testData(normalizedInputFile, normalizedOutputFile);
+				neuralNetwork.testData(normalizedInputFile,
+						normalizedOutputFile);
 
-				converter.denormalizeOutputData(normalizedOutputFile, outputFile);
+				converter.denormalizeOutputData(normalizedOutputFile,
+						outputFile);
 
 				System.out.println("Output written to " + outputFile);
 				System.out.println();
@@ -96,9 +103,9 @@ public class NarrRegressionTester {
 
 	}
 
-	private static void doAllTheThings(final String root, String path, int iteration,
-			int numberOfHiddenNodes, int numberOfIterations, int seed, double learningRate)
-					throws IOException {
+	private static void doAllTheThings(final String root, String path,
+			int iteration, int numberOfHiddenNodes, int numberOfIterations,
+			int seed, double learningRate) throws IOException {
 
 		NarrNeuralNetworkClassifier neuralNetwork;
 
@@ -114,11 +121,14 @@ public class NarrRegressionTester {
 		outputFile = root + path + "output" + iteration + ".txt";
 		validationFile = root + path + "validate" + iteration;
 
-		final String convertedTrainingFile = root + path + "normalized_train" + iteration + ".txt";
-		final String convertedTestFile = root + path + "normalized_test" + iteration + ".txt";
-		final String denormalizedOutputFile = root + path + "converted_output" + iteration + ".txt";
-		final String convertedValidationFile = root + path + "normalized_validate" + iteration
-				+ ".txt";
+		final String convertedTrainingFile = root + path + "normalized_train"
+				+ iteration + ".txt";
+		final String convertedTestFile = root + path + "normalized_test"
+				+ iteration + ".txt";
+		final String denormalizedOutputFile = root + path + "converted_output"
+				+ iteration + ".txt";
+		final String convertedValidationFile = root + path
+				+ "normalized_validate" + iteration + ".txt";
 
 		converter = new NarrRegressionConverter();
 		converter.normalizeTrainingData(trainingFile, convertedTrainingFile);
@@ -127,16 +137,19 @@ public class NarrRegressionTester {
 		neuralNetwork = new NarrNeuralNetworkClassifier();
 
 		neuralNetwork.loadTrainingData(convertedTrainingFile);
-		neuralNetwork.setParameters(numberOfHiddenNodes, numberOfIterations, seed, learningRate);
+		neuralNetwork.setParameters(numberOfHiddenNodes, numberOfIterations,
+				seed, learningRate);
 		neuralNetwork.trainUsingRegression();
 		neuralNetwork.testData(convertedTestFile, outputFile);
 
-		converter.convertOutputToOriginalValues(outputFile, denormalizedOutputFile);
+		converter.convertOutputToOriginalValues(outputFile,
+				denormalizedOutputFile);
 
 		System.out.println("Output written to " + denormalizedOutputFile);
 		System.out.println();
 
-		converter.normalizeValidationData(validationFile, convertedValidationFile);
+		converter.normalizeValidationData(validationFile,
+				convertedValidationFile);
 
 		neuralNetwork.validate(convertedValidationFile);
 	}

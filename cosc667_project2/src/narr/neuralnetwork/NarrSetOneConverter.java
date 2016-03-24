@@ -155,8 +155,8 @@ public class NarrSetOneConverter {
 		return outputFile;
 	}
 
-	public static String convertTrainingErrorData(String root,
-			String path, String filename) throws IOException {
+	public static String convertTrainingErrorData(String root, String path,
+			String filename) throws IOException {
 
 		final String outputFile = root + path + "converted_" + filename;
 

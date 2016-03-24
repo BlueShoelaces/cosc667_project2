@@ -22,11 +22,12 @@ public class NarrRegressionConverter {
 	private int numberOfTestRecords;
 	private int numberOfValidationRecords;
 
-	public void normalizeTrainingData(String originalFilename, String convertedFilename)
-			throws IOException {
+	public void normalizeTrainingData(String originalFilename,
+			String convertedFilename) throws IOException {
 
 		final Scanner inFile = new Scanner(new File(originalFilename));
-		final PrintWriter outFile = new PrintWriter(new FileWriter(convertedFilename));
+		final PrintWriter outFile = new PrintWriter(new FileWriter(
+				convertedFilename));
 
 		this.numberOfRecords = inFile.nextInt();
 		this.numberOfInputs = inFile.nextInt();
@@ -40,40 +41,43 @@ public class NarrRegressionConverter {
 		this.inputRanges = new double[this.numberOfInputs];
 		this.outputRanges = new double[this.numberOfOutputs];
 
-		outFile.println(
-				this.numberOfRecords + " " + this.numberOfInputs + " " + this.numberOfOutputs);
+		outFile.println(this.numberOfRecords + " " + this.numberOfInputs + " "
+				+ this.numberOfOutputs);
 
-		this.normalize(originalFilename, convertedFilename, this.numberOfRecords,
-				this.numberOfInputs, this.numberOfOutputs);
+		this.normalize(originalFilename, convertedFilename,
+				this.numberOfRecords, this.numberOfInputs, this.numberOfOutputs);
 
 		inFile.close();
 		outFile.close();
 	}
 
-	public void normalizeTestData(String originalFilename, String convertedFilename)
-			throws IOException {
+	public void normalizeTestData(String originalFilename,
+			String convertedFilename) throws IOException {
 
 		final Scanner inFile = new Scanner(new File(originalFilename));
-		final PrintWriter outFile = new PrintWriter(new FileWriter(convertedFilename));
+		final PrintWriter outFile = new PrintWriter(new FileWriter(
+				convertedFilename));
 
 		this.numberOfTestRecords = inFile.nextInt();
 		final int numberOfTestOutputs = 0;
 
-		outFile.println(
-				this.numberOfTestRecords + " " + this.numberOfInputs + " " + numberOfTestOutputs);
+		outFile.println(this.numberOfTestRecords + " " + this.numberOfInputs
+				+ " " + numberOfTestOutputs);
 
-		this.normalize(originalFilename, convertedFilename, this.numberOfTestRecords,
-				this.numberOfInputs, numberOfTestOutputs);
+		this.normalize(originalFilename, convertedFilename,
+				this.numberOfTestRecords, this.numberOfInputs,
+				numberOfTestOutputs);
 
 		inFile.close();
 		outFile.close();
 	}
 
-	public void convertOutputToOriginalValues(String originalFilename, String convertedFilename)
-			throws IOException {
+	public void convertOutputToOriginalValues(String originalFilename,
+			String convertedFilename) throws IOException {
 
 		final Scanner inFile = new Scanner(new File(originalFilename));
-		final PrintWriter outFile = new PrintWriter(new FileWriter(convertedFilename));
+		final PrintWriter outFile = new PrintWriter(new FileWriter(
+				convertedFilename));
 
 		double normalizedOutput;
 		double convertedOutput;
@@ -93,35 +97,40 @@ public class NarrRegressionConverter {
 		outFile.close();
 	}
 
-	public void normalizeValidationData(String originalFilename, String convertedFilename)
-			throws IOException {
+	public void normalizeValidationData(String originalFilename,
+			String convertedFilename) throws IOException {
 
 		final Scanner inFile = new Scanner(new File(originalFilename));
-		final PrintWriter outFile = new PrintWriter(new FileWriter(convertedFilename));
+		final PrintWriter outFile = new PrintWriter(new FileWriter(
+				convertedFilename));
 
 		this.numberOfValidationRecords = inFile.nextInt();
 		final int numberOfValidationOutputs = this.numberOfOutputs;
 
-		outFile.println(this.numberOfValidationRecords + " " + this.numberOfInputs + " "
-				+ numberOfValidationOutputs);
+		outFile.println(this.numberOfValidationRecords + " "
+				+ this.numberOfInputs + " " + numberOfValidationOutputs);
 
-		this.normalize(originalFilename, convertedFilename, this.numberOfValidationRecords,
-				this.numberOfInputs, numberOfValidationOutputs);
+		this.normalize(originalFilename, convertedFilename,
+				this.numberOfValidationRecords, this.numberOfInputs,
+				numberOfValidationOutputs);
 
 		inFile.close();
 		outFile.close();
 	}
 
-	private void normalize(String originalFilename, String convertedFilename, int numberOfRecords,
-			int numberOfInputs, int numberOfOutputs) throws IOException {
+	private void normalize(String originalFilename, String convertedFilename,
+			int numberOfRecords, int numberOfInputs, int numberOfOutputs)
+					throws IOException {
 
 		final Scanner inFile = new Scanner(new File(originalFilename));
-		final PrintWriter outFile = new PrintWriter(new FileWriter(convertedFilename));
+		final PrintWriter outFile = new PrintWriter(new FileWriter(
+				convertedFilename));
 
 		final double[][] inputs = new double[numberOfRecords][numberOfInputs];
 		final double[][] outputs = new double[numberOfRecords][numberOfOutputs];
 
-		outFile.println(numberOfRecords + " " + numberOfInputs + " " + numberOfOutputs);
+		outFile.println(numberOfRecords + " " + numberOfInputs + " "
+				+ numberOfOutputs);
 		outFile.println();
 
 		for (int record = 0; record < numberOfRecords; record++) {
@@ -152,7 +161,8 @@ public class NarrRegressionConverter {
 		}
 
 		for (int i = 0; i < numberOfOutputs; i++) {
-			this.outputRanges[i] = this.outputMaximums[i] - this.outputMinimums[i];
+			this.outputRanges[i] = this.outputMaximums[i]
+					- this.outputMinimums[i];
 		}
 
 		final double[][] normalizedInputs = new double[numberOfRecords][numberOfInputs];
@@ -161,14 +171,14 @@ public class NarrRegressionConverter {
 		for (int record = 0; record < numberOfRecords; record++) {
 
 			for (int input = 0; input < numberOfInputs; input++) {
-				normalizedInputs[record][input] = (inputs[record][input]
-						- this.inputMinimums[input]) / this.inputRanges[input];
+				normalizedInputs[record][input] = (inputs[record][input] - this.inputMinimums[input])
+						/ this.inputRanges[input];
 				outFile.print(normalizedInputs[record][input] + " ");
 			}
 
 			for (int output = 0; output < numberOfOutputs; output++) {
-				normalizedOutputs[record][output] = (outputs[record][output]
-						- this.outputMinimums[output]) / this.outputRanges[output];
+				normalizedOutputs[record][output] = (outputs[record][output] - this.outputMinimums[output])
+						/ this.outputRanges[output];
 				outFile.print(normalizedOutputs[record][output] + " ");
 			}
 

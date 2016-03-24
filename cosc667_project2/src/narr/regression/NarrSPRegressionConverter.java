@@ -12,17 +12,19 @@ public class NarrSPRegressionConverter {
 	private int numberOfOutputs;
 	private int numberOfTestRecords;
 
-	public void normalizeTrainingData(String originalFilename, String convertedFilename)
-			throws IOException {
+	public void normalizeTrainingData(String originalFilename,
+			String convertedFilename) throws IOException {
 
 		final Scanner inFile = new Scanner(new File(originalFilename));
-		final PrintWriter outFile = new PrintWriter(new FileWriter(convertedFilename));
+		final PrintWriter outFile = new PrintWriter(new FileWriter(
+				convertedFilename));
 
 		final int numberOfRecords = inFile.nextInt();
 		this.numberOfInputs = inFile.nextInt();
 		this.numberOfOutputs = inFile.nextInt();
 
-		outFile.println(numberOfRecords + " " + this.numberOfInputs + " " + this.numberOfOutputs);
+		outFile.println(numberOfRecords + " " + this.numberOfInputs + " "
+				+ this.numberOfOutputs);
 		outFile.println();
 
 		double value;
@@ -47,11 +49,12 @@ public class NarrSPRegressionConverter {
 		outFile.close();
 	}
 
-	public void normalizeValidationData(String originalFilename, String convertedFilename)
-			throws IOException {
+	public void normalizeValidationData(String originalFilename,
+			String convertedFilename) throws IOException {
 
 		final Scanner inFile = new Scanner(new File(originalFilename));
-		final PrintWriter outFile = new PrintWriter(new FileWriter(convertedFilename));
+		final PrintWriter outFile = new PrintWriter(new FileWriter(
+				convertedFilename));
 
 		final int numberOfRecords = inFile.nextInt();
 		outFile.println(numberOfRecords);
@@ -79,11 +82,12 @@ public class NarrSPRegressionConverter {
 		outFile.close();
 	}
 
-	public void normalizeTestData(String originalFilename, String convertedFilename)
-			throws IOException {
+	public void normalizeTestData(String originalFilename,
+			String convertedFilename) throws IOException {
 
 		final Scanner inFile = new Scanner(new File(originalFilename));
-		final PrintWriter outFile = new PrintWriter(new FileWriter(convertedFilename));
+		final PrintWriter outFile = new PrintWriter(new FileWriter(
+				convertedFilename));
 
 		this.numberOfTestRecords = inFile.nextInt();
 		outFile.println(this.numberOfTestRecords);
@@ -111,11 +115,12 @@ public class NarrSPRegressionConverter {
 		outFile.close();
 	}
 
-	public void denormalizeOutputData(String originalFilename, String convertedFilename)
-			throws IOException {
+	public void denormalizeOutputData(String originalFilename,
+			String convertedFilename) throws IOException {
 
 		final Scanner inFile = new Scanner(new File(originalFilename));
-		final PrintWriter outFile = new PrintWriter(new FileWriter(convertedFilename));
+		final PrintWriter outFile = new PrintWriter(new FileWriter(
+				convertedFilename));
 
 		double convertedValue;
 		double normalizedValue;

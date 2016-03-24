@@ -48,12 +48,14 @@ public class NarrNeuralNetworkTester {
 				neuralNetwork = new NarrNeuralNetworkClassifier();
 
 				neuralNetwork.loadTrainingData(root + path + trainingFile);
-				neuralNetwork.setParameters(numberOfHiddenNodes, numberOfIterations, seed,
-						learningRate);
+				neuralNetwork.setParameters(numberOfHiddenNodes,
+						numberOfIterations, seed, learningRate);
 				neuralNetwork.train();
-				neuralNetwork.testData(root + path + inputFile, root + path + outputFile);
+				neuralNetwork.testData(root + path + inputFile, root + path
+						+ outputFile);
 
-				System.out.println("Output written to " + root + path + outputFile);
+				System.out.println("Output written to " + root + path
+						+ outputFile);
 				System.out.println();
 
 				break;
@@ -66,25 +68,26 @@ public class NarrNeuralNetworkTester {
 				validationFile = "validate1.txt";
 
 				numberOfHiddenNodes = 4;
-				numberOfIterations = 1000;
-				seed = 4539;
-				learningRate = 0.9;
+				numberOfIterations = 10000;
+				seed = 1776;
+				learningRate = 0.375;
 
 				neuralNetwork = new NarrNeuralNetworkClassifier();
 
-				final String convertedTrainingFile = NarrSetOneConverter.convertTrainingData(root,
-						path, trainingFile);
-				final String convertedTestFile = NarrSetOneConverter.convertTestData(root, path,
-						inputFile);
+				final String convertedTrainingFile = NarrSetOneConverter
+						.convertTrainingData(root, path, trainingFile);
+				final String convertedTestFile = NarrSetOneConverter
+						.convertTestData(root, path, inputFile);
 
 				neuralNetwork.loadTrainingData(convertedTrainingFile);
-				neuralNetwork.setParameters(numberOfHiddenNodes, numberOfIterations, seed,
-						learningRate);
+				neuralNetwork.setParameters(numberOfHiddenNodes,
+						numberOfIterations, seed, learningRate);
 				neuralNetwork.train();
-				neuralNetwork.testData(convertedTestFile, root + path + outputFile);
+				neuralNetwork.testData(convertedTestFile, root + path
+						+ outputFile);
 
-				final String convertedOutputFile = NarrSetOneConverter.convertOutputData(root, path,
-						outputFile);
+				final String convertedOutputFile = NarrSetOneConverter
+						.convertOutputData(root, path, outputFile);
 
 				System.out.println("Output written to " + convertedOutputFile);
 				System.out.println();
@@ -94,12 +97,15 @@ public class NarrNeuralNetworkTester {
 
 				neuralNetwork.validate(convertedValidationFile);
 
-				neuralNetwork.writeTrainingErrorComparisonFile(root + path + "trainingOutput.txt");
+				neuralNetwork.writeTrainingErrorComparisonFile(root + path
+						+ "trainingOutput.txt");
 
 				final String convertedTrainingErrorComparisonFile = NarrSetOneConverter
-						.convertTrainingErrorData(root, path, "trainingOutput.txt");
+						.convertTrainingErrorData(root, path,
+								"trainingOutput.txt");
 
-				neuralNetwork.calculateTrainingError(convertedTrainingErrorComparisonFile);
+				neuralNetwork
+						.calculateTrainingError(convertedTrainingErrorComparisonFile);
 
 				neuralNetwork.displayWeights();
 
@@ -115,28 +121,30 @@ public class NarrNeuralNetworkTester {
 				validationFile = "validate2.txt";
 
 				numberOfHiddenNodes = 4;
-				numberOfIterations = 1000;
-				seed = 4539;
-				learningRate = 0.9;
+				numberOfIterations = 10000;
+				seed = 1776;
+				learningRate = 0.75;
 
 				neuralNetwork = new NarrNeuralNetworkClassifier();
 
 				final String convertedSetTwoTrainingFile = NarrSetTwoConverter
 						.convertTrainingData(root, path, trainingFile);
 
-				final String convertedSetTwoTestFile = NarrSetTwoConverter.convertTestData(root,
-						path, inputFile);
+				final String convertedSetTwoTestFile = NarrSetTwoConverter
+						.convertTestData(root, path, inputFile);
 
 				neuralNetwork.loadTrainingData(convertedSetTwoTrainingFile);
-				neuralNetwork.setParameters(numberOfHiddenNodes, numberOfIterations, seed,
-						learningRate);
+				neuralNetwork.setParameters(numberOfHiddenNodes,
+						numberOfIterations, seed, learningRate);
 				neuralNetwork.train();
-				neuralNetwork.testData(convertedSetTwoTestFile, root + path + outputFile);
+				neuralNetwork.testData(convertedSetTwoTestFile, root + path
+						+ outputFile);
 
-				final String convertedSetTwoOutputFile = NarrSetTwoConverter.convertOutputData(root,
-						path, outputFile);
+				final String convertedSetTwoOutputFile = NarrSetTwoConverter
+						.convertOutputData(root, path, outputFile);
 
-				System.out.println("Output written to " + convertedSetTwoOutputFile);
+				System.out.println("Output written to "
+						+ convertedSetTwoOutputFile);
 				System.out.println();
 
 				final String convertedSetTwoValidationFile = NarrSetTwoConverter
@@ -144,12 +152,15 @@ public class NarrNeuralNetworkTester {
 
 				neuralNetwork.validate(convertedSetTwoValidationFile);
 
-				neuralNetwork.writeTrainingErrorComparisonFile(root + path + "trainingOutput.txt");
+				neuralNetwork.writeTrainingErrorComparisonFile(root + path
+						+ "trainingOutput.txt");
 
 				final String convertedSetTwoTrainingErrorComparisonFile = NarrSetTwoConverter
-						.convertTrainingErrorData(root, path, "trainingOutput.txt");
+						.convertTrainingErrorData(root, path,
+								"trainingOutput.txt");
 
-				neuralNetwork.calculateTrainingError(convertedSetTwoTrainingErrorComparisonFile);
+				neuralNetwork
+						.calculateTrainingError(convertedSetTwoTrainingErrorComparisonFile);
 
 				neuralNetwork.displayWeights();
 

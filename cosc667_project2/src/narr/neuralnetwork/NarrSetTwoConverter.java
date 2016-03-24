@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 public class NarrSetTwoConverter {
 
-	public static String convertTrainingData(String root, String path, String filename)
-			throws IOException {
+	public static String convertTrainingData(String root, String path,
+			String filename) throws IOException {
 
 		final String outputFile = root + path + "converted_" + filename;
 
@@ -48,8 +48,9 @@ public class NarrSetTwoConverter {
 			maritalStatusToWrite = convertMaritalStatusToStandard(maritalStatus);
 			classToWrite = convertClassToStandard(atRiskClass);
 
-			outFile.println("" + creditScoreToWrite + " " + incomeToWrite + " " + ageToWrite + " "
-					+ sexToWrite + " " + maritalStatusToWrite + " " + classToWrite);
+			outFile.println("" + creditScoreToWrite + " " + incomeToWrite + " "
+					+ ageToWrite + " " + sexToWrite + " "
+					+ maritalStatusToWrite + " " + classToWrite);
 		}
 
 		inFile.close();
@@ -58,8 +59,8 @@ public class NarrSetTwoConverter {
 		return outputFile;
 	}
 
-	public static String convertTestData(String root, String path, String filename)
-			throws IOException {
+	public static String convertTestData(String root, String path,
+			String filename) throws IOException {
 
 		final String outputFile = root + path + "converted_" + filename;
 
@@ -94,8 +95,9 @@ public class NarrSetTwoConverter {
 			sexToWrite = convertSexToStandard(sex);
 			maritalStatusToWrite = convertMaritalStatusToStandard(maritalStatus);
 
-			outFile.println("" + creditScoreToWrite + " " + incomeToWrite + " " + ageToWrite + " "
-					+ sexToWrite + " " + maritalStatusToWrite);
+			outFile.println("" + creditScoreToWrite + " " + incomeToWrite + " "
+					+ ageToWrite + " " + sexToWrite + " "
+					+ maritalStatusToWrite);
 		}
 
 		inFile.close();
@@ -104,8 +106,8 @@ public class NarrSetTwoConverter {
 		return outputFile;
 	}
 
-	public static String convertOutputData(String root, String path, String filename)
-			throws IOException {
+	public static String convertOutputData(String root, String path,
+			String filename) throws IOException {
 
 		final String outputFile = root + path + "converted_" + filename;
 
@@ -129,8 +131,8 @@ public class NarrSetTwoConverter {
 		return outputFile;
 	}
 
-	public static String convertValidationData(String root, String path, String filename)
-			throws IOException {
+	public static String convertValidationData(String root, String path,
+			String filename) throws IOException {
 		final String outputFile = root + path + "converted_" + filename;
 
 		final Scanner inFile = new Scanner(new File(root + path + filename));
@@ -168,8 +170,9 @@ public class NarrSetTwoConverter {
 			maritalStatusToWrite = convertMaritalStatusToStandard(maritalStatus);
 			classToWrite = convertClassToStandard(atRiskClass);
 
-			outFile.println("" + creditScoreToWrite + " " + incomeToWrite + " " + ageToWrite + " "
-					+ sexToWrite + " " + maritalStatusToWrite + " " + classToWrite);
+			outFile.println("" + creditScoreToWrite + " " + incomeToWrite + " "
+					+ ageToWrite + " " + sexToWrite + " "
+					+ maritalStatusToWrite + " " + classToWrite);
 		}
 
 		inFile.close();
@@ -178,8 +181,8 @@ public class NarrSetTwoConverter {
 		return outputFile;
 	}
 
-	public static String convertTrainingErrorData(String root, String path, String filename)
-			throws IOException {
+	public static String convertTrainingErrorData(String root, String path,
+			String filename) throws IOException {
 
 		final String outputFile = root + path + "converted_" + filename;
 
@@ -196,7 +199,8 @@ public class NarrSetTwoConverter {
 			for (int j = 0; j < numberOfOutputs; j++) {
 
 				actualClass = convertStandardValueToClass(inFile.nextDouble());
-				predictedClass = convertStandardValueToClass(inFile.nextDouble());
+				predictedClass = convertStandardValueToClass(inFile
+						.nextDouble());
 
 				outFile.print(actualClass + " " + predictedClass);
 			}
